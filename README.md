@@ -29,6 +29,11 @@ Reasons to use Kafka
  - In terminal: docker cp F:\kafka-kraft\src\cass-db-setup.sql cassandra:/cass-db-setup.sql
  - docker exec -it cassandra cqlsh -f /cass-db-setup.sql
  - Every time making a change to cass-db-setup.sql, run again the 2 commands above.
+ - cqlsh Commands:
+   - DESCRIBE keyspaces  : show all keyspaces
+   - USE <keyspace-name> : choose keyspace 
+   - DESCRIBE TABLES     : show all tables
+   - DESCRIBE TABLE <table-name> : show table info
 5. V
 6. B
 7. f
