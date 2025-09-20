@@ -26,9 +26,9 @@ Reasons to use Kafka
  - The data is now streamed on: http://localhost:8000/stream
 4. Set up Cassandra
  - Make a file: cass-db-setup.sql
- - In terminal: docker cp F:\kafka-kraft\src\cass-db-setup.sql cassandra:/cass-db-setup.sql
- - docker exec -it cassandra cqlsh -f /cass-db-setup.sql
- - Every time making a change to cass-db-setup.sql, run again the 2 commands above.
+ - Every time making a change to cass-db-setup.sql, run 2 commands:
+   - In terminal: docker cp F:\kafka-kraft\src\cass-db-setup.sql cassandra:/cass-db-setup.sql
+   - docker exec -it cassandra cqlsh -f /cass-db-setup.sql
  - cqlsh Commands:
    - DESCRIBE keyspaces  : show all keyspaces
    - USE <keyspace-name> : choose keyspace 
