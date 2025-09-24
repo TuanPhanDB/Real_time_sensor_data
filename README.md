@@ -10,10 +10,10 @@ Reasons to use Kafka
  - Create a YAML compose file
  - docker compose up -d
  - Access to Kafka bash: docker exec -it kafka bash
-   - Create topics: /usr/bin/kafka-topics --create --bootstrap-server localhost:29092 --replication-factor 1 --partitions 1 --topic test-topic
+   - Create topics: /usr/bin/kafka-topics --create --bootstrap-server localhost:29092 --replication-factor 1 --partitions 1 --topic sensor-topic
    - List topics: /usr/bin/kafka-topics --list --bootstrap-server localhost:29092
-   - Create producer: /usr/bin/kafka-console-producer --bootstrap-server localhost:29092 --topic test-topic
-   - Open a new terminal window to create a consumer, access Kafka bash, and run consumer: /usr/bin/kafka-console-consumer --bootstrap-server localhost:29092 --topic test-topic --from-beginning
+   - Create producer: /usr/bin/kafka-console-producer --bootstrap-server localhost:29092 --topic sensor-topic
+   - Open a new terminal window to create a consumer, access Kafka bash, and run consumer: /usr/bin/kafka-console-consumer --bootstrap-server localhost:29092 --topic sensor-topic --from-beginning
  - Test connection to Cassandra: docker exec -it cassandra cqlsh
  - Test connection to PostgreSQL: docker exec -it postgres psql -U admin -d testdb
 2. Create env and main.py
