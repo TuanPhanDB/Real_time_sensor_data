@@ -11,6 +11,19 @@ def generate_sensor_data():
     humidity = 50.0     # starting humidity
 
     while True:
+        # Add SSE heartbeats with 10% chance for testing
+        if random.random() < 0.1:   
+            yield ": heartbeat\n\n"
+            time.sleep(1)
+            continue
+        
+        # Add invalid json event with 5% for testing
+        if random.random() < 0.05:
+            yield "data: {bad_json_event}\n\n"
+            time.sleep(1)
+            continue
+
+        # Valid event
         # Gradually vary temperature by ±0.2°C per step
         temperature += random.uniform(-0.2, 0.2)
         temperature = max(15.0, min(35.0, temperature))  # clamp to realistic range
