@@ -6,8 +6,9 @@ USE sensor_data;
 
 CREATE TABLE IF NOT EXISTS sensor_records (
     device_id TEXT,
+    date TEXT, 
     timestamp TIMESTAMP,
-    temperature FLOAT,
-    humidity FLOAT,
-    PRIMARY KEY (device_id, timestamp)
+    temperature DOUBLE,
+    humidity DOUBLE,
+    PRIMARY KEY ((device_id, date), timestamp)
 ) WITH CLUSTERING ORDER BY (timestamp DESC);
