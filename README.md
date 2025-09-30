@@ -27,8 +27,11 @@ Reasons to use Kafka
 4. Set up Cassandra
  - Make a file: cass-db-setup.sql
  - Every time making a change to cass-db-setup.sql, run 2 commands:
+   - If table existed: docker exec -it cassandra cqlsh
+   - Drop table first: DROP TABLE <name>;
    - In terminal: docker cp F:\kafka-kraft\src\cass-db-setup.sql cassandra:/cass-db-setup.sql
    - docker exec -it cassandra cqlsh -f /cass-db-setup.sql
+   - 
  - cqlsh Commands:
    - DESCRIBE keyspaces  : show all keyspaces
    - USE <keyspace-name> : choose keyspace 
