@@ -22,15 +22,15 @@ def generate_sensor_data():
             yield "data: {bad_json_event}\n\n"
             time.sleep(1)
             continue
-
+        
         # Valid event
-        # Gradually vary temperature by ±0.2°C per step
+        # Gradually vary temperature by ±0.2°C per step and humidity by ±0.5% per step
         temperature += random.uniform(-0.2, 0.2)
-        temperature = max(15.0, min(35.0, temperature))  # clamp to realistic range
-
-        # Gradually vary humidity by ±0.5% per step
         humidity += random.uniform(-0.5, 0.5)
-        humidity = max(30.0, min(70.0, humidity))  # clamp to realistic range
+
+        # Make temperature and humidity more realistic
+        temperature = max(15.0, min(35.0, temperature))  # temp range(15 - 35)
+        humidity = max(30.0, min(70.0, humidity))  # humi range (30 - 70)
 
         data = {
             "device_id": f"sensor-00{random.randint(1, 4)}",

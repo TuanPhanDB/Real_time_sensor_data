@@ -11,4 +11,5 @@ CREATE TABLE IF NOT EXISTS sensor_records (
     temperature DOUBLE,
     humidity DOUBLE,
     PRIMARY KEY ((device_id, date), timestamp)
-) WITH CLUSTERING ORDER BY (timestamp DESC);
+) WITH CLUSTERING ORDER BY (timestamp DESC)
+AND default_time_to_live = 86400; -- TTL in second. Expired after 1 day
