@@ -6,6 +6,7 @@ from quixstreams import Application
 from cassandra.cluster import Cluster
 from cassandra.concurrent import execute_concurrent
 from datetime import datetime
+import pandas as pd
 
 #Cassandra connection
 cassandra_cluster = Cluster(["localhost"])
@@ -53,7 +54,6 @@ def flush_batch():
     #Reset buffer and last_flush_time
     buffer = []
     last_flush_time = time.time()
-
 
 def process_valid_msg(msg):
     global buffer, last_flush_time

@@ -1,0 +1,66 @@
+from datetime import datetime, timezone, timedelta
+from cassandra.cluster import Cluster
+import pandas as pd
+from sqlalchemy import create_engine
+
+#Cassandra connection
+cassandra_cluster = Cluster(["localhost"])
+cassandra_session = cassandra_cluster.connect()
+cassandra_session.set_keyspace("sensor_data")
+
+# Connection parameters
+user="admin"
+password="admin123"
+host ="localhost"
+database="testdb"
+port=5432
+
+#SQL connection
+sql_connection = f"postgresql://{user}:{password}@{host}:{port}/{database}"
+engine = create_engine(sql_connection)
+
+#Get last minute to aggregate data for PostgreSQL
+# Current UTC time
+cur = datetime.now(timezone.utc)
+
+# Start and end of last full minute
+window_start = (cur - timedelta(minutes=1)).replace(second=0, microsecond=0)
+window_end = (window_start + timedelta(minutes=1))
+
+
+print(cur, window_start, window_end)
+#Prepare Query
+query = f"""
+    SELECT 
+        device_id, 
+        date, 
+        timestamp, 
+        temperature, 
+        humidity
+    FROM sensor_records
+    WHERE date = '{window_start.strftime('%Y-%m-%d')}'
+        AND timestamp >= '{window_start.isoformat()}'
+        AND timestamp < '{window_end.isoformat()}'
+    ALLOW FILTERING
+"""
+rows = cassandra_session.execute(query)
+df = pd.DataFrame(rows)
+
+if not df.empty:
+    df['start_time'] = df['timestamp'].dt.floor('min')
+
+    agg = (
+        df.groupby(['device_id', 'start_time']).agg(
+            avg_temp=('temperature', 'mean'),
+            min_temp=('temperature', 'min'),
+            max_temp=('temperature', 'max'),
+            avg_humidity=('humidity', 'mean'),
+            count=('temperature', 'count'))
+        .reset_index()
+    )
+
+    agg.to_sql('sensor_aggregates', engine, if_exists='append', index=False, chunksize=1000)
+
+    print(f"Wrote {len(agg)} aggregates from {window_start} → {window_end}")
+else:
+    print("No new data found.")
