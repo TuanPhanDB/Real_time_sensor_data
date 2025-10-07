@@ -37,7 +37,10 @@ Reasons to use Kafka
    - USE <keyspace-name> : choose keyspace 
    - DESCRIBE TABLES     : show all tables
    - DESCRIBE TABLE <table-name> : show table info
-5. V
+5. Set up PostgreSQL
+   - Copy script into postgres: docker cp F:\kafka-kraft\src\psql-db-setup.sql postgres:/psql-db-setup.sql
+   - Execute script: docker exec -it postgres psql -U admin -d testdb -W -f /psql-db-setup.sql
+   - Open postgres bash: docker exec -it postgres psql -U admin -d testdb -W
 6. B
 7. f
 8. f
