@@ -19,14 +19,13 @@ port=5432
 sql_connection = f"postgresql://{user}:{password}@{host}:{port}/{database}"
 engine = create_engine(sql_connection)
 
-#Get last minute to aggregate data for PostgreSQL
-# Current UTC time
-cur = datetime.now(timezone.utc)
+
+#Get last hour to aggregate data for PostgreSQL
+cur = datetime.now()
 
 # Start and end of last full minute
-window_start = (cur - timedelta(minutes=1)).replace(second=0, microsecond=0)
-window_end = (window_start + timedelta(minutes=1))
-
+window_start = (cur - timedelta(hours=1)).replace(second=0, microsecond=0)
+window_end = (window_start + timedelta(hours=1))
 
 print(cur, window_start, window_end)
 #Prepare Query
