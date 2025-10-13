@@ -12,7 +12,7 @@ def run_terminal(title, command):
 
 if __name__ == "__main__":
 
-    base_dir = os.path.join(os.getcwd())
+    base_dir = os.path.join(os.getcwd(), "src")
     activate = ".\\env\\Scripts\\activate"
 
     #Terminal 1: data_generator.py
