@@ -41,7 +41,8 @@ Reasons to use Kafka
    - Copy script into postgres: docker cp F:\kafka-kraft\src\psql-db-setup.sql postgres:/psql-db-setup.sql
    - Execute script: docker exec -it postgres psql -U admin -d testdb -W -f /psql-db-setup.sql
    - Open postgres bash: docker exec -it postgres psql -U admin -d testdb -W
-6. B
+6. Grafana
+   - http://localhost:3000/
 7. f
 8. f
 9. g
