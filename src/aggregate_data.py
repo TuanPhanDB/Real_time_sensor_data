@@ -1,10 +1,12 @@
 from datetime import datetime, timezone, timedelta
 from cassandra.cluster import Cluster
+from cassandra.auth import PlainTextAuthProvider
 import pandas as pd
 from sqlalchemy import create_engine
 
 #Cassandra connection
-cassandra_cluster = Cluster(["localhost"])
+auth_provider = PlainTextAuthProvider(username='admin', password='admin123')
+cassandra_cluster = Cluster(["localhost"], auth_provider=auth_provider)
 cassandra_session = cassandra_cluster.connect()
 cassandra_session.set_keyspace("sensor_data")
 
@@ -23,11 +25,12 @@ engine = create_engine(sql_connection)
 #Get last hour to aggregate data for PostgreSQL
 cur = datetime.now()
 
-# Start and end of last full minute
-window_start = (cur - timedelta(hours=1)).replace(second=0, microsecond=0)
-window_end = (window_start + timedelta(hours=1))
+# Start and end of yesterday
+window_start = (cur - timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+window_end = (window_start + timedelta(days=1))
 
 print(cur, window_start, window_end)
+
 #Prepare Query
 query = f"""
     SELECT 
@@ -44,6 +47,7 @@ query = f"""
 """
 rows = cassandra_session.execute(query)
 df = pd.DataFrame(rows)
+print(df)
 
 if not df.empty:
     df['start_time'] = df['timestamp'].dt.floor('min')

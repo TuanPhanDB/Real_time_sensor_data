@@ -5,11 +5,13 @@ import time
 from quixstreams import Application
 from cassandra.cluster import Cluster
 from cassandra.concurrent import execute_concurrent
+from cassandra.auth import PlainTextAuthProvider
 from datetime import datetime
 import pandas as pd
 
 #Cassandra connection
-cassandra_cluster = Cluster(["localhost"])
+auth_provider = PlainTextAuthProvider(username='admin', password='admin123')
+cassandra_cluster = Cluster(["localhost"], auth_provider=auth_provider)
 cassandra_session = cassandra_cluster.connect()
 cassandra_session.set_keyspace("sensor_data")
 

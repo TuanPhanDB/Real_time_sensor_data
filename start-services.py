@@ -24,9 +24,13 @@ if __name__ == "__main__":
     #Terminal 3: consumer.py
     cmd3 = f'Set-Location "{base_dir}"; {activate}; py consumer.py'
 
+    #Terminal 4: aggregate_data.py
+    cmd4 = f'Set-Location "{base_dir}"; {activate}; py aggregate_data.py'
+
     print("Starting services....")
     run_terminal("Data generator", cmd1)
     run_terminal("Producer", cmd2)
     run_terminal("Consumer", cmd3)
+    run_terminal("Aggregate_data", cmd4)
 
     print("Services started")

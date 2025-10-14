@@ -34,8 +34,16 @@ services:
       CASSANDRA_NUM_TOKENS: 8
       MAX_HEAP_SIZE: 512M
       HEAP_NEWSIZE: 256M
+      CASSANDRA_SUPERUSER: admin
+      CASSANDRA_PASSWORD: admin123
     volumes:
       - cassandra-data:/var/lib/cassandra
+    # Ensure Grafana wait for Cassandra report "healthy"
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe cluster' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     networks:
       - app-network
 
@@ -53,6 +61,24 @@ services:
     networks:
       - app-network
 
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+
+      # Cassandra data source plugin
+      - GF_INSTALL_PLUGINS=hadesarchitect-cassandra-datasource
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - cassandra
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge
@@ -61,3 +87,4 @@ volumes:
   kafka-data:
   cassandra-data:
   postgres-data:
+  grafana-data:
