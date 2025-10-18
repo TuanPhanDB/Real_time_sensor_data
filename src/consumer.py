@@ -6,7 +6,7 @@ from quixstreams import Application
 from cassandra.cluster import Cluster
 from cassandra.concurrent import execute_concurrent
 from cassandra.auth import PlainTextAuthProvider
-from datetime import datetime
+from datetime import datetime, timezone
 import pandas as pd
 
 #Cassandra connection
@@ -63,7 +63,7 @@ def process_valid_msg(msg):
     value = json.loads(msg.value())
 
     #Convert timestamp float → datetime (Cassandra "timestamp" column)
-    ts = datetime.fromtimestamp(float(value["timestamp"]))
+    ts = datetime.fromtimestamp(float(value["timestamp"]), timezone.utc)
     date_str = ts.strftime("%Y-%m-%d")
 
     buffer.append((
