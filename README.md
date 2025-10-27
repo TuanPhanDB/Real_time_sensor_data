@@ -43,6 +43,7 @@ Reasons to use Kafka
    - Open postgres bash: docker exec -it postgres psql -U admin -d testdb -W
 6. Grafana
    - http://localhost:3000/
+   - login: admin/admin123
 7. f
 8. f
 9. g
