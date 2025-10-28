@@ -37,6 +37,10 @@ This project provides scripts for simulating real-time sensor data and streaming
   ```terminal
   py start_services.py
   ```
+- Set up Grafana dashboard
+  - Access: http://localhost:3000/
+  - Login: admin/admin123
+    
 
 
 
