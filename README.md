@@ -16,7 +16,8 @@ This project provides scripts for simulating real-time sensor data and streaming
 - The data from Cassandra will be queried to visualize on the Grafana dashboard. The dashboard will show the current status of the temperature and humidity of the selected device.
 - ![dashboard](https://github.com/user-attachments/assets/5603b1d6-ef86-4514-88f6-5a942a6aaf58)
 
-### 
+### How to use
+- **Note: The project only works on Windows PowerShell. To use it on the Linux Terminal, change the commands in the start_services.py file.**
 - Clone the project
   ```terminal
   git clone https://github.com/TuanPhanDB/Real_time_sensor_data.git
