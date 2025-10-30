@@ -1,6 +1,6 @@
 ## Real-time Sensor Data
 
-This is a project that simulates the IoT project to control the temperature and humidity for the services like plant-house, stock storage, smart house, ...
+This is a project that simulates the IoT project to control the temperature and humidity for the services that can be applied to plant-houses, stock storages, smart houses, ...
 
 This project provides scripts for simulating real-time sensor data and streaming by Kafka services. The raw stream data is stored in Cassandra and aggregated data in PostgreSQL. Grafana is used for visualizing streaming data and showing threshold that help observe and make action to control the temperature and humidity.
 
@@ -16,11 +16,15 @@ This project provides scripts for simulating real-time sensor data and streaming
 - The data from Cassandra will be queried to visualize on the Grafana dashboard. The dashboard will show the current status of the temperature and humidity of the selected device.
 - ![dashboard](https://github.com/user-attachments/assets/5603b1d6-ef86-4514-88f6-5a942a6aaf58)
 
-### How to use
-- **Note: The project only works on Windows PowerShell. To use it on the Linux Terminal, change the commands in the start_services.py file.**
+### Getting Started
+- **Note: The start_services.py only works on Windows PowerShell. To use it on the Linux Terminal, change the commands in the start_services.py file.**
 - Clone the project
   ```terminal
   git clone https://github.com/TuanPhanDB/Real_time_sensor_data.git
+  ```
+- Run the Docker Compose file
+  ```terminal
+  docker compose up -d
   ```
 - Create a virtual environment
   ```terminal
@@ -29,10 +33,6 @@ This project provides scripts for simulating real-time sensor data and streaming
 - Instal requirements
   ```terminal
   pip install -r requirements.txt
-  ```
-- Run the Docker Compose file
-  ```terminal
-  docker compose up -d
   ```
 - Start all the files (data_generator.py, producer.py, consumer.py, aggregate_data.py)
   ```terminal
