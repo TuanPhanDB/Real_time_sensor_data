@@ -41,8 +41,35 @@ This project provides scripts for simulating real-time sensor data and streaming
 - Set up Grafana dashboard
   - Access: http://localhost:3000/
   - Login: admin/admin123
+  - Create new Dashboard
+  - Create dynamic variable
+    - In Settings -> Variables -> New variable
+    - Select variable type is Query and set variable name
+    - Select data source is Cassandra-db
+    - In Query, add this:
+      ```sql
+      SELECT device_id FROM sensor_records;
+      ```
+    - Run query
+  - Create visualizations
+    - Choose Add -> Visualization
+    - Choose Time series for the visualization
+    - In the same panel, you can configure your desired visualization: Unit, Threshold, Data range, ...
+    - Add this query:
+      ```sql
+      SELECT 
+       device_id, 
+       timestamp, 
+       temperature
+      FROM sensor_records
+      WHERE device_id = '$selected_device'
+       AND timestamp >= ${__from} AND timestamp <= ${__to}
+      ALLOW FILTERING;
+      ```
+    - Setting the time range from "now - 5m" to "now" to observe the data in the last 5 minutes
+    - Also, set the time zone in UTC
+  
     
-
 
 
   
