@@ -86,7 +86,7 @@ Modify the shell commands in the script to use it on **Linux**.
   ```
 #### 3. Create a Virtual Environment
   ```terminal
-  py -m venv .venv
+  py -m venv env
   ```
 #### 4. Install Dependencies
   ```terminal
